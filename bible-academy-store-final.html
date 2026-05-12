@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bible Academy Treasure Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #3B5BD9;
+  --primary-dark: #2A3FA0;
+  --accent: #F9C12E;
+  --accent-dark: #E0A800;
+  --maroon: #7A1C2E;
+  --success: #27AE60;
+  --error: #E74C3C;
+  --neutral-light: #F8F9FA;
+  --neutral-mid: #E8EAF0;
+  --neutral-dark: #5A6678;
+  --text-dark: #1A1F2E;
+  --white: #FFFFFF;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.16);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--neutral-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== AUTH SCREENS ===== */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: 20px;
+}
+
+.auth-box {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 36px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.logo-img {
+  height: 56px;
+  object-fit: contain;
+}
+
+.auth-header h1 {
+  font-family: 'Crimson Text', serif;
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.auth-header p {
+  font-size: 0.9rem;
+  color: var(--neutral-dark);
+  font-weight: 500;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.form-group input {
+  padding: 11px 14px;
+  border: 2px solid var(--neutral-mid);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid var(--neutral-mid);
+  background: white;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--neutral-dark);
+}
+
+.auth-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.btn-login {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-login:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-login:disabled {
+  background: var(--neutral-mid);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-error {
+  background: #fee;
+  border: 2px solid var(--error);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: var(--error);
+  font-weight: 600;
+  display: none;
+  margin-bottom: 12px;
+}
+
+/* ===== MAIN APP ===== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background: white;
+  border-bottom: 1px solid var(--neutral-mid);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.header-logos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-logo {
+  height: 48px;
+  object-fit: contain;
+}
+
+.header-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--neutral-mid);
+}
+
+.header-title h1 {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.6rem;
+  color: var(--text-dark);
+}
+
+.header-title p {
+  font-size: 0.8rem;
+  color: var(--neutral-dark);
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.user-info {
+  text-align: right;
+  display: none;
+}
+
+.user-info.visible { display: block; }
+
+.user-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.user-type {
+  font-size: 0.75rem;
+  color: var(--neutral-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  font-weight: 600;
+}
+
+.user-points {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent-dark);
+  display: none;
+}
+
+.user-points.visible { display: flex; }
+
+.btn-logout {
+  background: var(--error);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-logout:hover { background: #c0392b; }
+
+/* ===== TABS ===== */
+.tabs {
+  background: white;
+  border-bottom: 1px solid var(--neutral-mid);
+  display: flex;
+  gap: 0;
+  padding: 0 20px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 14px 18px;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--neutral-dark);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tab:hover { color: var(--text-dark); }
+
+.tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab.admin-only {
+  margin-left: auto;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.content-section {
+  display: none;
+}
+
+.content-section.active {
+  display: block;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+  margin-bottom: 28px;
+}
+
+.section-header h2 {
+  font-family: 'Crimson Text', serif;
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.section-header p {
+  color: var(--neutral-dark);
+  font-weight: 500;
+}
+
+/* ===== GIFT GRID ===== */
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.gift-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.gift-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.gift-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gift-card.disabled:hover {
+  transform: none;
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.gift-image {
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(135deg, #f0f4ff, #e8ecff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.gift-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gift-image.no-img {
+  background: linear-gradient(135deg, #f5f7ff, #eff2ff);
+}
+
+.gift-status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--success);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.gift-status.unavailable {
+  background: #999;
+}
+
+.gift-info {
+  padding: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gift-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+
+.gift-desc {
+  font-size: 0.8rem;
+  color: var(--neutral-dark);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.gift-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--neutral-mid);
+}
+
+.gift-cost {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--accent-dark);
+}
+
+.gift-quantity {
+  font-size: 0.75rem;
+  color: var(--neutral-dark);
+  font-weight: 600;
+}
+
+.btn-add-cart {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 9px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.btn-add-cart:hover { background: var(--primary-dark); }
+
+.btn-add-cart:disabled {
+  background: var(--neutral-mid);
+  cursor: not-allowed;
+}
+
+/* ===== CART ===== */
+.cart-panel {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--neutral-light);
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid var(--neutral-mid);
+}
+
+.cart-item-emoji {
+  font-size: 2rem;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.cart-item-cost {
+  font-size: 0.8rem;
+  color: var(--neutral-dark);
+  font-weight: 600;
+}
+
+.btn-remove-item {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--neutral-dark);
+  transition: color 0.2s;
+}
+
+.btn-remove-item:hover { color: var(--error); }
+
+.cart-summary {
+  background: var(--primary);
+  color: white;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+
+.cart-total-cost {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.4rem;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout-form input {
+  padding: 11px 14px;
+  border: 2px solid var(--neutral-mid);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.checkout-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.btn-checkout {
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-checkout:hover { background: #1e8449; }
+
+.btn-checkout:disabled {
+  background: var(--neutral-mid);
+  cursor: not-allowed;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--neutral-dark);
+}
+
+.cart-empty-emoji {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+/* ===== ORDERS ===== */
+.orders-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.order-card.fulfilled {
+  border-left-color: var(--success);
+  opacity: 0.75;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.order-student {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.order-date {
+  font-size: 0.8rem;
+  color: var(--neutral-dark);
+}
+
+.order-items {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--neutral-mid);
+}
+
+.order-cost {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.btn-fulfill {
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-fulfill:hover { background: #1e8449; }
+
+.fulfilled-badge {
+  background: #eafaf1;
+  color: var(--success);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.no-orders {
+  text-align: center;
+  padding: 40px;
+  color: var(--neutral-dark);
+}
+
+/* ===== ADMIN PANEL ===== */
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .admin-grid { grid-template-columns: 1fr; }
+}
+
+.admin-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-card h3 {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  color: var(--text-dark);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 11px 14px;
+  border: 2px solid var(--neutral-mid);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  transition: border-color 0.2s;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.file-upload-area {
+  border: 2px dashed var(--neutral-mid);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--neutral-light);
+}
+
+.file-upload-area:hover {
+  border-color: var(--primary);
+  background: #f0f4ff;
+}
+
+.file-upload-area input {
+  display: none;
+}
+
+.file-upload-text {
+  font-size: 0.9rem;
+  color: var(--neutral-dark);
+  font-weight: 500;
+}
+
+.file-preview {
+  width: 100%;
+  max-width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn-primary:hover { background: var(--primary-dark); }
+
+.btn-secondary {
+  background: var(--accent);
+  color: var(--text-dark);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover { background: var(--accent-dark); }
+
+.gifts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gift-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--neutral-light);
+  border-radius: 10px;
+  border: 1px solid var(--neutral-mid);
+}
+
+.gift-item-emoji {
+  font-size: 1.8rem;
+}
+
+.gift-item-info {
+  flex: 1;
+}
+
+.gift-item-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.gift-item-meta {
+  font-size: 0.8rem;
+  color: var(--neutral-dark);
+  font-weight: 600;
+}
+
+.btn-delete {
+  background: none;
+  border: 2px solid var(--neutral-mid);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--error);
+  transition: all 0.2s;
+  font-size: 1.1rem;
+}
+
+.btn-delete:hover {
+  background: #fee;
+  border-color: var(--error);
+}
+
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.students-table th,
+.students-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--neutral-mid);
+  font-size: 0.9rem;
+}
+
+.students-table th {
+  font-weight: 700;
+  background: var(--neutral-light);
+  color: var(--text-dark);
+}
+
+.students-table input {
+  width: 80px;
+  padding: 6px;
+  border: 1px solid var(--neutral-mid);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.btn-save-points {
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-save-points:hover { background: #1e8449; }
+
+/* ===== MODALS ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: white;
+  border-radius: 20px;
+  padding: 36px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+}
+
+.modal h3 {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.modal p {
+  color: var(--neutral-dark);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn-modal-ok {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 28px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text-dark);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 999;
+  transition: transform 0.3s;
+  box-shadow: var(--shadow-md);
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== CONFETTI ===== */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti.red { background: var(--error); }
+.confetti.blue { background: var(--primary); }
+.confetti.yellow { background: var(--accent); }
+.confetti.green { background: var(--success); }
+.confetti.maroon { background: var(--maroon); }
+
+/* ===== HIDDEN ===== */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="authScreen" class="auth-container">
+  <div class="auth-box">
+    <div class="auth-header">
+      <div class="logo-container" id="authLogos"></div>
+      <h1>Bible Academy</h1>
+      <p>Treasure Store</p>
+    </div>
+    
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuthTab('student')">Student</button>
+      <button class="auth-tab" onclick="switchAuthTab('admin')">Admin</button>
+    </div>
+
+    <div id="studentAuthForm" class="auth-form">
+      <div class="auth-error" id="authError"></div>
+      <div class="form-group">
+        <label>Phone or Email</label>
+        <input type="text" id="studentInput" placeholder="Enter your phone or email">
+      </div>
+      <button class="btn-login" onclick="loginStudent()">Enter Store</button>
+    </div>
+
+    <div id="adminAuthForm" class="auth-form" style="display:none">
+      <div class="auth-error" id="authErrorAdmin"></div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="adminEmail" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="adminPassword" placeholder="Password">
+      </div>
+      <button class="btn-login" onclick="loginAdmin()">Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP SCREEN -->
+<div id="appScreen" class="app-container" style="display:none">
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <div class="header-logos" id="appLogos"></div>
+        <div class="header-divider"></div>
+        <div class="header-title">
+          <h1>Treasure Store</h1>
+          <p>St. Verena Bible Academy</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="user-info" id="userInfo">
+          <div class="user-name" id="userName"></div>
+          <div class="user-type" id="userType"></div>
+        </div>
+        <div class="user-points" id="userPoints">
+          <span>💎</span>
+          <span id="pointsDisplay">0</span>
+        </div>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs" id="tabsContainer"></div>
+
+  <main>
+    <!-- STORE -->
+    <div id="storeTab" class="content-section active">
+      <div class="section-header">
+        <h2>🎁 Pick Your Reward</h2>
+        <p>Choose gifts you've earned with your hard work</p>
+      </div>
+      <div class="gift-grid" id="giftGrid"></div>
+    </div>
+
+    <!-- CART -->
+    <div id="cartTab" class="content-section">
+      <div class="section-header">
+        <h2>🛒 Your Cart</h2>
+      </div>
+      <div class="cart-panel">
+        <div id="cartEmpty" class="cart-empty">
+          <div class="cart-empty-emoji">🛒</div>
+          <p>Your cart is empty. Add some gifts to get started!</p>
+        </div>
+        <div id="cartContent" style="display:none">
+          <div class="cart-items" id="cartItems"></div>
+          <div class="cart-summary">
+            <span>Total Points</span>
+            <span class="cart-total-cost" id="cartTotal">0</span>
+          </div>
+          <form class="checkout-form" id="checkoutForm" style="display:none">
+            <input type="text" id="checkoutName" placeholder="Your full name" required>
+            <input type="email" id="checkoutEmail" placeholder="Your email" required>
+            <input type="tel" id="checkoutPhone" placeholder="Your phone" required>
+            <button type="button" class="btn-checkout" onclick="placeOrder()">Place Order</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="ordersTab" class="content-section" style="display:none">
+      <div class="section-header">
+        <h2>📋 Orders</h2>
+        <p id="ordersSubtitle"></p>
+      </div>
+      <div class="orders-grid" id="ordersContainer"></div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="adminTab" class="content-section" style="display:none">
+      <div class="admin-grid">
+        <!-- ADD GIFTS -->
+        <div class="admin-card">
+          <h3>Add New Gift</h3>
+          <div class="form-group">
+            <label>Gift Name</label>
+            <input type="text" id="giftName" placeholder="e.g. Bible Storybook">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="giftDesc" placeholder="Short description"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Emoji</label>
+            <input type="text" id="giftEmoji" placeholder="📚" maxlength="4" value="🎁">
+          </div>
+          <div class="form-group">
+            <label>Points Cost</label>
+            <input type="number" id="giftPoints" placeholder="100" min="1">
+          </div>
+          <div class="form-group">
+            <label>Quantity Available</label>
+            <input type="number" id="giftQuantity" placeholder="10" min="1">
+          </div>
+          <div class="form-group">
+            <label>Gift Image</label>
+            <div class="file-upload-area" onclick="document.getElementById('giftImage').click()">
+              <input type="file" id="giftImage" accept="image/*">
+              <div class="file-upload-text">Click to upload image</div>
+              <img id="imagePreview" style="display:none">
+            </div>
+          </div>
+          <button class="btn-primary" onclick="addGift()">Add Gift</button>
+          <div style="margin-top:16px">
+            <h4 style="font-weight:700;margin-bottom:10px;color:var(--text-dark)">Current Gifts</h4>
+            <div class="gifts-list" id="giftsList"></div>
+          </div>
+        </div>
+
+        <!-- MANAGE STUDENTS -->
+        <div class="admin-card">
+          <h3>Student Points</h3>
+          <table class="students-table" id="studentsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Points</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="studentsList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h3>Order Placed!</h3>
+    <p id="successMessage">Your order has been submitted. Your teacher will give you your gift soon!</p>
+    <button class="btn-modal-ok" onclick="closeModal()">Got it!</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script>
+const SUPABASE_URL = 'https://bmgcwbmcyvdbipntjdam.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_rpbZDuwTZB1G9_TfUMIYew_UOztIHVl';
+
+// Admin credentials
+const ADMINS = {
+  'Micwadie@gmail.com': 'SVBA2026!!$$$',
+  'Mnmitry@gmail.com': 'SVBA2026!!$$$',
+  'Dina.nfarag@gmail.com': 'SVBA2026!!$$$',
+  'Christine.assaf24@gmail.com': 'SVBA2026!!$$$',
+  'Karimnabil78@hotmail.com': 'SVBA2026!!$$$',
+  'Carolkyoussef@gmail.com': 'SVBA2026!!$$$'
+};
+
+// STATE
+let currentUser = null;
+let currentUserType = null;
+let gifts = [];
+let cart = [];
+let orders = [];
+let students = {};
+let currentAuthTab = 'student';
+
+// SUPABASE API CALLS
+async function supabaseCall(method, table, data = null, filters = null) {
+  const headers = {
+    'Content-Type': 'application/json',
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`
+  };
+
+  let url = `${SUPABASE_URL}/rest/v1/${table}`;
+  let body = null;
+
+  if (method === 'GET') {
+    if (filters) {
+      const filterStr = Object.entries(filters).map(([k,v]) => `${k}=eq.${encodeURIComponent(v)}`).join('&');
+      url += `?${filterStr}`;
+    } else {
+      url += '?limit=1000';
+    }
+  } else if (method === 'POST') {
+    body = JSON.stringify(data);
+  } else if (method === 'PATCH') {
+    if (filters) {
+      const filterStr = Object.entries(filters).map(([k,v]) => `${k}=eq.${encodeURIComponent(v)}`).join('&');
+      url += `?${filterStr}`;
+    }
+    body = JSON.stringify(data);
+  }
+
+  try {
+    const response = await fetch(url, { method, headers, body });
+    if (!response.ok) throw new Error(`API Error: ${response.status}`);
+    return method === 'GET' ? await response.json() : true;
+  } catch (e) {
+    console.error('Supabase error:', e);
+    return null;
+  }
+}
+
+// INIT
+async function init() {
+  const baLogo = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4/JS5ESUM5PjkqKSj/2wBDAQoJCQ4NDgwODgwQDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDAgIDgj/2wAMDAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==';
+  const churchLogo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABcQAAAXECAMAAAGjEM0qAAAACXBIWXMAABcSAAAXEgFnn9JSAAAKTWlDQ1BQaG90b3Nob3AgSUND';
+
+  document.getElementById('authLogos').innerHTML = `<img src="${baLogo}" class="logo-img"><img src="${churchLogo}" class="logo-img">`;
+  document.getElementById('appLogos').innerHTML = `<img src="${baLogo}" class="header-logo"><img src="${churchLogo}" class="header-logo">`;
+
+  // Load data
+  await loadGifts();
+  await loadStudents();
+}
+
+async function loadGifts() {
+  const data = await supabaseCall('GET', 'gifts');
+  if (data) gifts = data;
+  renderGiftGrid();
+  renderAdminGifts();
+}
+
+async function loadStudents() {
+  const data = await supabaseCall('GET', 'students');
+  if (data) {
+    students = {};
+    data.forEach(s => {
+      students[s.email] = s;
+      students[s.phone] = s;
+    });
+  }
+  renderStudentsTable();
+}
+
+// AUTH
+function switchAuthTab(tab) {
+  currentAuthTab = tab;
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('studentAuthForm').style.display = tab === 'student' ? 'flex' : 'none';
+  document.getElementById('adminAuthForm').style.display = tab === 'admin' ? 'flex' : 'none';
+}
+
+function loginStudent() {
+  const input = document.getElementById('studentInput').value.trim().toLowerCase();
+  const error = document.getElementById('authError');
+  
+  if (!input) {
+    error.textContent = 'Please enter your phone or email';
+    error.style.display = 'block';
+    return;
+  }
+
+  const student = students[input];
+  if (!student) {
+    error.textContent = 'Not found. Check your phone number or email.';
+    error.style.display = 'block';
+    return;
+  }
+
+  currentUser = student;
+  currentUserType = 'student';
+  showApp();
+}
+
+function loginAdmin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  const error = document.getElementById('authErrorAdmin');
+
+  if (!email || !password) {
+    error.textContent = 'Please enter email and password';
+    error.style.display = 'block';
+    return;
+  }
+
+  if (!ADMINS[email] || ADMINS[email] !== password) {
+    error.textContent = 'Invalid email or password';
+    error.style.display = 'block';
+    return;
+  }
+
+  currentUser = { email };
+  currentUserType = 'admin';
+  showApp();
+}
+
+function logout() {
+  currentUser = null;
+  currentUserType = null;
+  cart = [];
+  document.getElementById('authScreen').style.display = 'flex';
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('studentInput').value = '';
+  document.getElementById('adminEmail').value = '';
+  document.getElementById('adminPassword').value = '';
+}
+
+function showApp() {
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'flex';
+
+  if (currentUserType === 'student') {
+    document.getElementById('userName').textContent = currentUser.name;
+    document.getElementById('userType').textContent = 'Student';
+    document.getElementById('userInfo').classList.add('visible');
+    document.getElementById('userPoints').classList.add('visible');
+    updatePoints();
+    renderTabs(['store', 'cart', 'orders']);
+    switchTab('store');
+  } else {
+    document.getElementById('userName').textContent = currentUser.email;
+    document.getElementById('userType').textContent = 'Admin';
+    document.getElementById('userInfo').classList.add('visible');
+    document.getElementById('userPoints').classList.remove('visible');
+    renderTabs(['orders', 'admin']);
+    switchTab('orders');
+  }
+}
+
+// TABS
+function renderTabs(tabs) {
+  const container = document.getElementById('tabsContainer');
+  const icons = { store: '🎁', cart: '🛒', orders: '📋', admin: '⚙️' };
+  const labels = { store: 'Store', cart: 'Cart', orders: 'Orders', admin: 'Admin' };
+  
+  container.innerHTML = tabs.map(t => `<div class="tab ${t === 'store' ? 'active' : ''}" onclick="switchTab('${t}')">${icons[t]} ${labels[t]}</div>`).join('');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event?.target?.classList.add('active');
+  document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(tab + 'Tab').classList.add('active');
+}
+
+// STORE
+function renderGiftGrid() {
+  const grid = document.getElementById('giftGrid');
+  if (!gifts.length) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--neutral-dark)">No gifts available yet</p>';
+    return;
+  }
+
+  grid.innerHTML = gifts.map(g => {
+    const canAfford = currentUser.points >= g.points_cost;
+    const inCart = cart.some(c => c.id === g.id);
+    const outOfStock = g.quantity <= 0;
+    const disabled = outOfStock || !canAfford;
+
+    return `
+      <div class="gift-card ${disabled ? 'disabled' : ''} ${inCart ? 'in-cart-ribbon' : ''}">
+        <div class="gift-image ${g.image_url ? '' : 'no-img'}">
+          ${g.image_url ? `<img src="${g.image_url}" alt="${g.name}">` : `<span>${g.emoji}</span>`}
+          <div class="gift-status ${outOfStock ? 'unavailable' : ''}">${outOfStock ? 'Sold Out' : 'Available'}</div>
+        </div>
+        <div class="gift-info">
+          <div class="gift-name">${g.name}</div>
+          <div class="gift-desc">${g.description}</div>
+          <div class="gift-meta">
+            <div class="gift-cost"><span>💎</span> ${g.points_cost}</div>
+            <div class="gift-quantity">Stock: ${g.quantity}</div>
+          </div>
+          <button class="btn-add-cart" ${disabled ? 'disabled' : ''} onclick="addToCart(${g.id})">${inCart ? '✓ In Cart' : canAfford ? 'Add to Cart' : 'Not Enough Points'}</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function addToCart(id) {
+  const gift = gifts.find(g => g.id === id);
+  if (!gift || cart.some(c => c.id === id)) return;
+  cart.push({ ...gift });
+  updateCart();
+  toast('Added to cart! 🎉');
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCart();
+}
+
+function updateCart() {
+  renderGiftGrid();
+  const cartContent = document.getElementById('cartContent');
+  const cartEmpty = document.getElementById('cartEmpty');
+  const checkoutForm = document.getElementById('checkoutForm');
+
+  if (cart.length === 0) {
+    cartContent.style.display = 'none';
+    cartEmpty.style.display = 'block';
+    return;
+  }
+
+  cartEmpty.style.display = 'none';
+  cartContent.style.display = 'block';
+
+  const total = cart.reduce((s, c) => s + c.points_cost, 0);
+  document.getElementById('cartTotal').textContent = total;
+  document.getElementById('cartItems').innerHTML = cart.map(c => `
+    <div class="cart-item">
+      <div class="cart-item-emoji">${c.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.name}</div>
+        <div class="cart-item-cost">💎 ${c.points_cost}</div>
+      </div>
+      <button class="btn-remove-item" onclick="removeFromCart(${c.id})">✕</button>
+    </div>`).join('');
+
+  if (total <= currentUser.points) {
+    checkoutForm.style.display = 'flex';
+    document.getElementById('checkoutName').value = currentUser.name;
+    document.getElementById('checkoutEmail').value = currentUser.email;
+    document.getElementById('checkoutPhone').value = currentUser.phone;
+  } else {
+    checkoutForm.style.display = 'none';
+  }
+}
+
+async function placeOrder() {
+  const total = cart.reduce((s, c) => s + c.points_cost, 0);
+  if (total > currentUser.points) {
+    toast('Not enough points');
+    return;
+  }
+
+  const itemsList = cart.map(c => `${c.emoji} ${c.name}`).join(', ');
+  
+  // Create order
+  await supabaseCall('POST', 'orders', {
+    student_id: currentUser.id,
+    student_name: currentUser.name,
+    student_email: currentUser.email,
+    student_phone: currentUser.phone,
+    items: itemsList,
+    points_spent: total,
+    status: 'pending',
+    created_at: new Date().toISOString()
+  });
+
+  // Update student points
+  await supabaseCall('PATCH', 'students', { points: currentUser.points - total }, { id: currentUser.id });
+
+  // Update gift quantities
+  for (const item of cart) {
+    await supabaseCall('PATCH', 'gifts', { quantity: item.quantity - 1 }, { id: item.id });
+  }
+
+  currentUser.points -= total;
+  cart = [];
+  updatePoints();
+  updateCart();
+  launchConfetti();
+  document.getElementById('successMessage').textContent = `Order placed, ${currentUser.name}! Your teacher will give you your gifts soon. Great work! 🏆`;
+  document.getElementById('successModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('successModal').classList.remove('open');
+  switchTab('store');
+}
+
+function updatePoints() {
+  document.getElementById('pointsDisplay').textContent = currentUser.points;
+}
+
+// ORDERS
+async function loadOrders() {
+  const data = await supabaseCall('GET', 'orders');
+  if (data) orders = data;
+  renderOrders();
+}
+
+function renderOrders() {
+  const container = document.getElementById('ordersContainer');
+  if (!orders.length) {
+    container.innerHTML = '<div class="no-orders">No orders yet</div>';
+    return;
+  }
+
+  container.innerHTML = orders.map(o => `
+    <div class="order-card ${o.status === 'fulfilled' ? 'fulfilled' : ''}">
+      <div class="order-header">
+        <div class="order-student">👤 ${o.student_name}</div>
+        <div class="order-date">${new Date(o.created_at).toLocaleDateString()}</div>
+      </div>
+      <div class="order-items">${o.items}</div>
+      <div class="order-footer">
+        <div class="order-cost">💎 ${o.points_spent} pts</div>
+        ${o.status === 'fulfilled' ? '<span class="fulfilled-badge">✅ Fulfilled</span>' : `<button class="btn-fulfill" onclick="markFulfilled(${o.id})">Mark Fulfilled</button>`}
+      </div>
+    </div>`).join('');
+}
+
+async function markFulfilled(id) {
+  await supabaseCall('PATCH', 'orders', { status: 'fulfilled' }, { id });
+  await loadOrders();
+  toast('Order marked as fulfilled ✅');
+}
+
+// ADMIN - ADD GIFT
+async function addGift() {
+  const name = document.getElementById('giftName').value.trim();
+  const desc = document.getElementById('giftDesc').value.trim();
+  const emoji = document.getElementById('giftEmoji').value || '🎁';
+  const points = parseInt(document.getElementById('giftPoints').value);
+  const quantity = parseInt(document.getElementById('giftQuantity').value);
+  const imageFile = document.getElementById('giftImage').files[0];
+
+  if (!name || !desc || !points || !quantity) {
+    toast('Fill in all fields');
+    return;
+  }
+
+  let imageUrl = null;
+  if (imageFile) {
+    imageUrl = await uploadImage(imageFile);
+  }
+
+  await supabaseCall('POST', 'gifts', {
+    name, description: desc, emoji, points_cost: points, quantity, image_url: imageUrl
+  });
+
+  document.getElementById('giftName').value = '';
+  document.getElementById('giftDesc').value = '';
+  document.getElementById('giftEmoji').value = '🎁';
+  document.getElementById('giftPoints').value = '';
+  document.getElementById('giftQuantity').value = '';
+  document.getElementById('giftImage').value = '';
+  document.getElementById('imagePreview').style.display = 'none';
+
+  await loadGifts();
+  toast('Gift added! 🎁');
+}
+
+async function uploadImage(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/storage/v1/b/gifts/upload`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      },
+      body: formData
+    });
+    
+    if (response.ok) {
+      const name = file.name.split('.')[0];
+      return `${SUPABASE_URL}/storage/v1/object/public/gifts/${name}`;
+    }
+  } catch (e) {
+    console.error('Upload error:', e);
+  }
+  return null;
+}
+
+document.getElementById('giftImage').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const preview = document.getElementById('imagePreview');
+      preview.src = reader.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+async function deleteGift(id) {
+  if (!confirm('Delete this gift?')) return;
+  await supabaseCall('DELETE', 'gifts', null, { id });
+  await loadGifts();
+  toast('Gift deleted');
+}
+
+// ADMIN - MANAGE STUDENTS
+function renderAdminGifts() {
+  const list = document.getElementById('giftsList');
+  if (!gifts.length) {
+    list.innerHTML = '<p style="color:var(--neutral-dark);font-size:0.9rem">No gifts yet</p>';
+    return;
+  }
+
+  list.innerHTML = gifts.map(g => `
+    <div class="gift-item">
+      <div class="gift-item-emoji">${g.emoji}</div>
+      <div class="gift-item-info">
+        <div class="gift-item-name">${g.name}</div>
+        <div class="gift-item-meta">💎 ${g.points_cost} · Stock: ${g.quantity}</div>
+      </div>
+      <button class="btn-delete" onclick="deleteGift(${g.id})">🗑</button>
+    </div>`).join('');
+}
+
+function renderStudentsTable() {
+  const tbody = document.getElementById('studentsList');
+  const studentList = Object.values(students).filter((v, i, a) => a.indexOf(v) === i);
+  
+  tbody.innerHTML = studentList.map(s => `
+    <tr>
+      <td>${s.name}</td>
+      <td><input type="number" value="${s.points}" id="points-${s.id}" min="0"></td>
+      <td><button class="btn-save-points" onclick="savePoints(${s.id})">Save</button></td>
+    </tr>`).join('');
+}
+
+async function savePoints(id) {
+  const newPoints = parseInt(document.getElementById(`points-${id}`).value);
+  if (isNaN(newPoints)) return;
+  
+  await supabaseCall('PATCH', 'students', { points: newPoints }, { id });
+  await loadStudents();
+  toast('Points updated ✅');
+}
+
+// UTILS
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function launchConfetti() {
+  const colors = ['#E74C3C', '#3B5BD9', '#F9C12E', '#27AE60', '#7A1C2E'];
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = `confetti ${['red','blue','yellow','green','maroon'][i%5]}`;
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.animation = `falling ${Math.random()*1+1.5}s linear forwards`;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }, i*30);
+  }
+}
+
+const keyframes = `
+@keyframes falling {
+  to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}`;
+const style = document.createElement('style');
+style.textContent = keyframes;
+document.head.appendChild(style);
+
+// INIT
+init();
+window.addEventListener('load', () => {
+  loadOrders();
+  setInterval(loadOrders, 5000);
+});
+</script>
+</body>
+</html>
